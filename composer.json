@@ -4,7 +4,7 @@
     "type": "package",
     "require": {
        "php": ">=5.5.9",
-       "laravel/framework": "5.2.*",
+       "laravel/framework": "^5.2.*",
        "predis/predis": "^1.1"
     },
     "license": "MIT",
@@ -20,9 +20,6 @@
         }
     },
     "autoload-dev": {
-        "classmap": [
-            "tests/TestCase.php"
-        ],
         "psr-4": {
             "Dreams\\LangTranslatorFakes\\": "tests"
         }
