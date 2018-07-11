@@ -20,9 +20,6 @@
         }
     },
     "autoload-dev": {
-        "classmap": [
-            "tests/TestCase.php"
-        ],
         "psr-4": {
             "Dreams\\LangTranslatorFakes\\": "tests"
         }
