@@ -1,0 +1,10 @@
+<phpunit>
+  <testsuites>
+    <testsuite name="alltest">
+      <file>DeleteKeysCommandTest.php</file>
+      <file>LangManagerTest.php</file>
+      <file>LangTranslatorTest.php</file>
+      <file>PutFromDbCommandTest.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>
