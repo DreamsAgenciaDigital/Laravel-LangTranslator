@@ -26,6 +26,10 @@
         "psr-4": {
             "Dreams\\LangTranslatorTests\\": "tests"
         }
+        ,
+        "files": [
+            "tests/LaravelHelpers/helpers.php"
+        ]
     },
     "minimum-stability": "dev"
 }

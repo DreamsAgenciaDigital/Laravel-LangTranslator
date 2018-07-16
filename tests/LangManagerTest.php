@@ -21,7 +21,6 @@ class LangManagerTest extends TestCase
         $this->app->singleton('translation.loader', function ($app) {
             return new FakeLoader();
         });
-
     }
 
     public function testClassIsInstantiable()

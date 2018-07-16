@@ -11,7 +11,7 @@ class FakeCommand extends LangTranslatorDeleteKeysCommand
         return 'es-es:*';
     }
 
-    public function ask($key=null)
+    public function ask($question, $default = NULL)
     {
         return 'es-es:*';
     }
