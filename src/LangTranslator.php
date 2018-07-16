@@ -62,14 +62,15 @@ class LangTranslator extends Translator
      * @return string
      */
     public function get($key, array $replace = [], $locale = null, $fallback = true)
-    {        
+    {
         $line   = null; 
         $locale = ($locale) ? $locale : $this->locale;
 
         if(strpos($key, '::'))
         {
             $namespace = explode('::', $key)[0].':';
-            $key       = explode(explode('::', $key)[0].'.', $key)[1];
+            $locale    = explode('.', explode('::', $key)[1])[0];
+            $key       = explode($namespace.':'.$locale.'.', $key)[1];
         }
         else
             $namespace = '';

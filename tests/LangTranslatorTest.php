@@ -42,6 +42,26 @@ class LangTranslatorTest extends TestCase
         $this->assertEquals('mivalue', $translator->get('mikey'));
     }
 
+    public function testItGetTranslationWithNamespace()
+    {
+        $translator = new LangTranslator(
+            new FakeLoader(),
+            $this->lang
+        );
+
+        $this->assertEquals('mivalue', $translator->get('namespace::es-es.mikey'));
+    }
+
+    public function testItGetTranslationWithException()
+    {
+        $translator = new LangTranslator(
+            new FakeLoader(),
+            $this->lang
+        );
+
+        $this->assertEquals('error connection fakeredis', $translator->get('exception'));
+    }
+
     public function testItNotGetTranslation()
     {
         $translator = new LangTranslator(

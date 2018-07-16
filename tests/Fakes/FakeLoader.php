@@ -3,14 +3,19 @@
 namespace Dreams\LangTranslatorTests\Fakes;
 
 use Dreams\LangTranslator\LoaderInterface;
+use InvalidArgumentException;
 
 class FakeLoader implements LoaderInterface
 {
     public function get(string $key)
     {
-        if($key==='es-es:mikey' || $key==='en-gb:mikey')
+        if($key==='namespace:es-es:mikey' || $key==='es-es:mikey' || $key==='en-gb:mikey')
         {
             return base64_encode('mivalue');
+        }
+        else if($key==='es-es:exception')
+        {
+            throw new InvalidArgumentException('error connection fakeredis');
         }
         else
         {
