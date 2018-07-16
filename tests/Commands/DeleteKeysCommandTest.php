@@ -1,13 +1,16 @@
 <?php
 
+namespace Dreams\LangTranslatorTests\Commands;
+
+use Dreams\LangTranslatorTests\TestCase;
+use Dreams\LangTranslatorTests\Fakes\FakeLoader;
+use Dreams\LangTranslatorTests\Fakes\FakeCommand;
 use Dreams\LangTranslator\Commands\LangTranslatorDeleteKeysCommand;
-use Dreams\LangTranslatorFakes\FakeLoader;
-use Dreams\LangTranslatorFakes\FakeCommand;
 
 /**
- * Description of LangManagerTest
+ * Description of DeleteKeysCommandTest
  *
- * @author jorge
+ * @author Jorge Lopez
  */
 class DeleteKeysCommandTest extends TestCase
 {

@@ -1,12 +1,15 @@
 <?php
 
+namespace Dreams\LangTranslatorTests;
+
+use Dreams\LangTranslatorTests\TestCase;
+use Dreams\LangTranslatorTests\Fakes\FakeLoader;
 use Dreams\LangTranslator\LangTranslator;
-use Dreams\LangTranslatorFakes\FakeLoader;
 
 /**
- * Description of LangManagerTest
+ * Description of LangTranslatorTest
  *
- * @author jorge
+ * @author Jorge Lopez
  */
 class LangTranslatorTest extends TestCase
 {
@@ -58,7 +61,8 @@ class LangTranslatorTest extends TestCase
 
         $this->assertEquals(
             'mivalue',
-            $translator->get('mikey',
+            $translator->get(
+                'mikey',
                 ['replace' => 'replace']
             )
         );
@@ -73,7 +77,8 @@ class LangTranslatorTest extends TestCase
 
         $this->assertEquals(
             'mivalue',
-            $translator->get('mikey',
+            $translator->get(
+                'mikey',
                 ['replace' => 'replace'],
                 'en-gb'
             )
@@ -89,7 +94,8 @@ class LangTranslatorTest extends TestCase
 
         $this->assertEquals(
             'mikey',
-            $translator->get('mikey',
+            $translator->get(
+                'mikey',
                 ['replace' => 'replace'],
                 'fr-fr'
             )

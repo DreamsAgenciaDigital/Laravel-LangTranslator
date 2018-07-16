@@ -3,7 +3,7 @@
 namespace Dreams\LangTranslator;
 
 use Dreams\LangTranslator\LoaderInterface;
-use Dreams\LangTranslator\Translation;
+use Dreams\LangTranslator\Models\Translation;
 use Exception;
 use Log;
 
@@ -105,8 +105,14 @@ class LangManager
      */
     public function loadTransFromFile(string $fileName, string $filePath, $locale = null)
     {
-        $locale   = ($locale) ? $locale : $this->locale;
-        $filePath = base_path($filePath);
+        $locale           = ($locale) ? $locale : $this->locale;
+        $filePathOriginal = $filePath;
+        $expression       = str_replace('/', '\/', $filePath);
+
+        if(! preg_match("/".$expression."/", $filePath))
+            $filePath = base_path($filePath);
+        else
+            $filePath = $filePathOriginal;
 
         try
         {

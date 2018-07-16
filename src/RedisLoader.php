@@ -2,8 +2,8 @@
 
 namespace Dreams\LangTranslator;
 
-use Dreams\LangTranslator\LoaderInterface;
 use Illuminate\Support\Facades\Redis;
+use Dreams\LangTranslator\LoaderInterface;
 
 class RedisLoader implements LoaderInterface
 {

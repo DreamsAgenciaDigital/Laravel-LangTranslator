@@ -19,7 +19,7 @@ class LangTranslatorPutFileCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'langtranslator:putfile {namespace} {filePath} {locale}';
+    protected $signature = 'langtranslator:putfile {namespace?} {filePath?} {locale?}';
 
     /**
      * The console command description.
@@ -39,11 +39,33 @@ class LangTranslatorPutFileCommand extends Command
         $filePath  = $this->argument('filePath'); // packages/asanzred/languagebuilder/src/language/en/languagebuilder.php
         $locale    = $this->argument('locale'); // en, en-gb
 
-        $state = LangManager::getInstance()->loadTransFromFile($namespace, $filePath, $locale);
+        if(is_null($namespace))
+        {
+            do
+            {
+                $namespace = $this->ask('Write a namespace for example, languagebuilder::languagebuilder');
+            }
+            while(is_null($namespace));
+        }
 
-        if(! $state)
-            return false;
+        if(is_null($filePath))
+        {
+            do
+            {
+                $filePath = $this->ask('Write a filepath for example, packages/asanzred/languagebuilder/src/language/en/languagebuilder.php');
+            }
+            while(is_null($filePath));
+        }
 
-        return true;
+        if(is_null($locale))
+        {
+            do
+            {
+                $locale = $this->ask('Write a locale for example, es-es');
+            }
+            while(is_null($locale));
+        }
+
+        return LangManager::getInstance()->loadTransFromFile($namespace, $filePath, $locale);
     }
 }

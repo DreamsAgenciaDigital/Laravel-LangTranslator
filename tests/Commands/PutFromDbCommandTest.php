@@ -1,13 +1,16 @@
 <?php
 
-use Dreams\LangTranslatorFakes\FakeLoader;
-use Dreams\LangTranslatorFakes\FakeTranslationModel;
+namespace Dreams\LangTranslatorTests\Commands;
+
+use Dreams\LangTranslatorTests\TestCase;
+use Dreams\LangTranslatorTests\Fakes\FakeLoader;
+use Dreams\LangTranslatorTests\Fakes\FakeTranslationModel;
 use Dreams\LangTranslator\Commands\LangTranslatorPutFromDbCommand;
 
 /**
- * Description of LangManagerTest
+ * Description of PutFromDbCommandtest
  *
- * @author jorge
+ * @author Jorge Lopez
  */
 class PutFromDbCommandtest extends TestCase
 {
@@ -34,7 +37,11 @@ class PutFromDbCommandtest extends TestCase
         $command = new LangTranslatorPutFromDbCommand();
         $this->assertTrue(
             $command->handle(
-                new FakeTranslationModel('mikey','mivalue','es-es')
+                new FakeTranslationModel(
+                    'mikey',
+                    'mivalue',
+                    'es-es'
+                )
             )
         );
     }

@@ -19,7 +19,7 @@ class LangTranslatorPutFolderCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'langtranslator:putfolder {folder}';
+    protected $signature = 'langtranslator:putfolder {folder?}';
 
     /**
      * The console command description.
@@ -35,13 +35,17 @@ class LangTranslatorPutFolderCommand extends Command
      */
     public function handle()
     {
-        $folder    = $this->argument('folder'); //resources/lang
+        $folder = $this->argument('folder'); //resources/lang
 
-        $state = LangManager::getInstance()->loadTransFromDir($folder);
+        if(is_null($folder))
+        {
+            do
+            {
+                $folder = $this->ask('Write a folder to import for example resources/lang: ');
+            }
+            while(is_null($folder));
+        }
 
-        if(! $state)
-            return false;
-
-        return true;
+        return LangManager::getInstance()->loadTransFromDir($folder);
     }
 }

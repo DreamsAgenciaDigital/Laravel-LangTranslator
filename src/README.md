@@ -10,18 +10,17 @@ This package provide a Translator Provider for configure Laravel Translations in
 For default implements Redis. You are free to implement other storage, only need inject new provider to LangTranslator class.
 
 ```php
-# Add to psr-4 composer.json in each project
-"psr-4": {
-    "Dreams\\LangTranslator\\": "packages/dreams/langtranslator/src"
-}
+# Add require composer.json in each project
+"require": {
+    "dreams/langtranslator": "^1.0"
+},
 
-# Add to composer.json in adm project
-# This add translations from files to redis when dumpautoload project
-# It's recommended add this to boot start server
-"post-autoload-dump": [
-    "php artisan langtranslator:putfile languagebuilder::languagebuilder packages/asanzred/languagebuilder/src/language/en-gb/languagebuilder.php en-gb",
-    "php artisan langtranslator:putfile languagebuilder::languagebuilder packages/asanzred/languagebuilder/src/language/en/languagebuilder.php en",
-    "php artisan langtranslator:putfolder resources/lang"
+# Add to end of composer.json in each project
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://dev.dreams.es/Packages/Laravel-LangTranslator.git"
+    }
 ]
 ```
 
@@ -56,4 +55,7 @@ Dreams\LangTranslator\LangTranslatorProvider::class,
 
 # Run dumpautoload
 php composer.phar dumpautoload
+
+# Run publish config vendor
+php artisan vendor:publish --provider="Dreams\LangTranslator\LangTranslatorProvider"
 ```

@@ -1,13 +1,16 @@
 <?php
 
+namespace Dreams\LangTranslatorTests;
+
+use Dreams\LangTranslatorTests\TestCase;
+use Dreams\LangTranslatorTests\Fakes\FakeTranslationModel;
+use Dreams\LangTranslatorTests\Fakes\FakeLoader;
 use Dreams\LangTranslator\LangManager;
-use Dreams\LangTranslatorFakes\FakeTranslationModel;
-use Dreams\LangTranslatorFakes\FakeLoader;
 
 /**
  * Description of LangManagerTest
  *
- * @author jorge
+ * @author Jorge Lopez
  */
 class LangManagerTest extends TestCase
 {
