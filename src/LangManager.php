@@ -131,7 +131,19 @@ class LangManager
                 return false;
 
             foreach (include $filePath as $key => $value)
-                $this->set($fileName.'.'.$key, $value, $locale);
+            {
+                if(is_array($value))
+                {
+                    foreach ($value as $key2 => $value2)
+                    {
+                        $this->set($fileName.'.'.$key.'.'.$key2, $value2, $locale);
+                    }
+                }
+                else
+                {
+                    $this->set($fileName.'.'.$key, $value, $locale);
+                }
+            }
 
             return true;
         }
