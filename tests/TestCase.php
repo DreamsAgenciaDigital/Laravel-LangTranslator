@@ -39,6 +39,10 @@ class TestCase extends BaseTestCase
             return new FakeLog();
         });
 
+        $this->app->singleton('path.config', function ($app, $name) {
+            return 'es-es';
+        });
+
         //function basePath() {};
 
         //$this->app->bindMethod('basePath', 'RealRandom');
