@@ -6,6 +6,7 @@ use Dreams\LangTranslatorTests\TestCase;
 use Dreams\LangTranslatorTests\Fakes\FakeTranslationModel;
 use Dreams\LangTranslatorTests\Fakes\FakeLoader;
 use Dreams\LangTranslator\LangManager;
+use org\bovigo\vfs\vfsStream;
 
 /**
  * Description of LangManagerTest
@@ -208,6 +209,83 @@ class LangManagerTest extends TestCase
     {
         $this->assertTrue(
             LangManager::getInstance()->deleteKeys('*')
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_load_trans_from_dir()
+    {
+        /*$structure = array(
+            'tmp' => array(
+                'music' => array(
+                    'wawfiles' => array(
+                        'mp3'                      => array(),
+                        'hello world.waw'          => 'nice song',
+                        'abc.waw'                  => 'bad song',
+                        'put that cookie down.waw' => 'best song ever',
+                        "zed's dead baby.waw"      => 'another cool song'
+                    )
+                )
+            )
+        );
+
+        $vfs = vfsStream::setup('root');
+        vfsStream::create($structure, $vfs);
+
+        $filePath = vfsStream::url('root/tmp/music/wawfiles');
+
+        //var_dump(scandir($music));*/
+
+        $filePath = '/var/www/html/tests/Fakes/fakeslang';
+
+        $this->assertTrue(
+            LangManager::getInstance()->loadTransFromDir($filePath)
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_load_trans_from_dir_and_returns_exception_when_dir_not_found()
+    {
+        $filePath = '/var/www/html/tests/Fakes/fakeslangnotexist';
+
+        $this->assertFalse(
+            LangManager::getInstance()->loadTransFromDir($filePath)
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_load_trans_from_file_and_returns_false_when_dir_not_found()
+    {
+        $fileName = 'generic.php';
+        $filePath = '/var/www/html/tests/Fakes/fakeslangnotexist';
+        $locale   = 'tst1-tst1';
+
+        $this->assertFalse(
+            LangManager::getInstance()->loadTransFromFile($fileName, $filePath, $locale)
+        );
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function it_load_trans_from_file_and_returns_exception_when_redis_not_work()
+    {
+        $fileName = 'generic.php';
+        $filePath = '/var/www/html/tests/Fakes/fakeslang';
+        $locale   = 'tst-tst';
+
+        $this->assertFalse(
+            LangManager::getInstance()->loadTransFromFile($fileName, $filePath, $locale)
         );
     }
 }

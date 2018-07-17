@@ -31,6 +31,9 @@ class FakeLoader implements LoaderInterface
         $this->key   = $key;
         $this->value = $value;
 
+        if($key==='exception')
+            throw new \Exception("Error Processing Request", 1);
+
         return $this;
     }
 

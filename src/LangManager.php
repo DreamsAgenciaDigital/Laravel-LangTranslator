@@ -115,13 +115,15 @@ class LangManager
     public function loadTransFromFile(string $fileName, string $filePath, $locale = null)
     {
         $locale           = ($locale) ? $locale : $this->locale;
-        $filePathOriginal = $filePath;
+        //** $filePathOriginal = $filePath;
         $expression       = str_replace('/', '\/', $filePath);
 
-        if(! preg_match("/".$expression."/", $filePath))
-            $filePath = base_path($filePath);
-        else
-            $filePath = $filePathOriginal;
+        //** if(! preg_match("/".$expression."/", $filePath))
+        //**     $filePath = base_path($filePath);
+        //** else
+        //**     $filePath = $filePathOriginal;
+
+        //** Se comenta para que siempre sea ruta absoluta
 
         try
         {
@@ -149,7 +151,7 @@ class LangManager
     {
         try
         {
-            $baseFolder    = base_path($dirPath);
+            $baseFolder    = $dirPath; //base_path($dirPath); //** Se comenta para que siempre sea ruta absoluta
             $notprocessing = array('..', '.');
             $langs         = array_diff(scandir($baseFolder), $notprocessing);
 

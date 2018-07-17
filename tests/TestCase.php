@@ -29,7 +29,7 @@ class TestCase extends BaseTestCase
         /**
         * Set $app as FacadeApplication handler
         */
-        Facade::setFacadeApplication($this->app);
+        //Facade::setFacadeApplication($this->app);
 
         $this->app->singleton('config', function ($app, $name) {
             return new FakeConfig($name);
@@ -38,6 +38,12 @@ class TestCase extends BaseTestCase
         $this->app->singleton('Log', function ($app) {
             return new FakeLog();
         });
+
+        //function basePath() {};
+
+        //$this->app->bindMethod('basePath', 'RealRandom');
+
+        //$this->app->call('basePath');
 
         /*$this->app->singleton('translation.loader', function ($app) {
             return new FakeLoader();
