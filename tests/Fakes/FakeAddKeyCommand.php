@@ -2,9 +2,9 @@
 
 namespace Dreams\LangTranslatorTests\Fakes;
 
-use Dreams\LangTranslator\Commands\LangTranslatorDeleteKeysCommand;
+use Dreams\LangTranslator\Commands\LangTranslatorAddKeyCommand;
 
-class FakeCommand extends LangTranslatorDeleteKeysCommand
+class FakeAddKeyCommand extends LangTranslatorAddKeyCommand
 {
     public $key;
 

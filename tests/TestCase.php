@@ -7,6 +7,7 @@ use Illuminate\Container\Container as Container;
 use Illuminate\Support\Facades\Facade as Facade;
 use Dreams\LangTranslatorTests\Fakes\FakeLog;
 use Dreams\LangTranslatorTests\Fakes\FakeConfig;
+use Dreams\LangTranslatorTests\Fakes\FakeLang;
 
 class TestCase extends BaseTestCase
 {
@@ -37,6 +38,10 @@ class TestCase extends BaseTestCase
 
         $this->app->singleton('Log', function ($app) {
             return new FakeLog();
+        });
+
+        $this->app->singleton('Lang', function ($app) {
+            return new FakeLang();
         });
 
         $this->app->singleton('path.config', function ($app, $name) {
