@@ -3,11 +3,11 @@
     "description": "Lang Translator for different storages management",
     "type": "package",
     "require": {
-       "php": ">=5.5.9",
-       "laravel/framework": "^5.2",
-       "predis/predis": "^1.1"
+       "php": ">=5.5.9"
     },
     "require-dev": {
+        "laravel/framework": "^5.2",
+        "predis/predis": "^1.1",
         "phpunit/phpunit": "~7.0",
         "mikey179/vfsStream": "^1.6"
     },
