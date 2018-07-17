@@ -5,7 +5,8 @@ namespace Dreams\LangTranslator;
 use Dreams\LangTranslator\LoaderInterface;
 use Dreams\LangTranslator\Models\Translation;
 use Exception;
-use Log;
+//use Illuminate\Support\Facades\Log as Log;
+//use Log;
 
 class LangManager
 {
@@ -31,6 +32,12 @@ class LangManager
     protected $locale;
 
     /**
+     * Logger
+     * @var \Illuminate\Support\Facades\Log
+     */
+    protected $log;
+
+    /**
      * Create a new private LangManager instance.
      *
      * @param  \Illuminate\Translation\LoaderInterface  $loader
@@ -41,6 +48,7 @@ class LangManager
     {
         $this->loader = $loader;
         $this->locale = $locale;
+        $this->log    = app('Log');
     }
 
     /**
@@ -77,7 +85,8 @@ class LangManager
             if(strpos($key, '::'))
             {
                 $namespace = explode('::', $key)[0].':';
-                $key       = explode(explode('::', $key)[0].'.', $key)[1];
+                $locale    = explode('.', explode('::', $key)[1])[0];
+                $key       = explode($namespace.':'.$locale.'.', $key)[1];
             }
             else
                 $namespace = '';
@@ -91,7 +100,7 @@ class LangManager
         }
         catch(Exception $e)
         {
-            Log::error($e->getMessage());
+            $this->log->error($e->getMessage());
             return false;
         }
     }
@@ -126,7 +135,7 @@ class LangManager
         }
         catch(Exception $e)
         {
-            Log::error($e->getMessage());
+            $this->log->error($e->getMessage());
             return false;
         }
     }
@@ -160,7 +169,7 @@ class LangManager
         }
         catch(Exception $e)
         {
-            Log::error($e->getMessage());
+            $this->log->error($e->getMessage());
             return false;
         }
     }
@@ -180,7 +189,7 @@ class LangManager
 
             if(! $status)
             {
-                Log::error('Error al guardar la traduccion:'.$trans->key);
+                $this->log->error('Error al guardar la traduccion:'.$trans->key);
                 return false;
             }
         }
@@ -209,7 +218,7 @@ class LangManager
         }
         catch(Exception $e)
         {
-            Log::error($e->getMessage());
+            $this->log->error($e->getMessage());
             return false;
         }
     }
@@ -244,7 +253,7 @@ class LangManager
         }
         catch(Exception $e)
         {
-            Log::error($e->getMessage());
+            $this->log->error($e->getMessage());
             return false;
         }
     }
