@@ -4,9 +4,10 @@ namespace Dreams\LangTranslator;
 
 use Dreams\LangTranslator\LoaderInterface;
 use Dreams\LangTranslator\Models\Translation;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 use Exception;
-//use Illuminate\Support\Facades\Log as Log;
-//use Log;
+use InvalidArgumentException;
 
 class LangManager
 {
@@ -33,7 +34,7 @@ class LangManager
 
     /**
      * Logger
-     * @var \Illuminate\Support\Facades\Log
+     * @var \Monolog\Logger
      */
     protected $log;
 
@@ -48,7 +49,7 @@ class LangManager
     {
         $this->loader = $loader;
         $this->locale = $locale;
-        $this->log    = app('Log');
+        $this->startLogger();
     }
 
     /**
@@ -67,6 +68,26 @@ class LangManager
         }
 
         return self::$instance;
+    }
+
+    private function startLogger()
+    {
+        if(__DIR__ === '/var/www/html/src')
+        {
+            $logDir = '/var/www/html/logs';
+        }
+        else
+        {
+            $logDir = __DIR__ . '/../../../../storage/logs';
+        }
+
+        if(! file_exists($logDir))
+        {
+            mkdir($logDir);
+        }
+
+        $this->log    = new Logger('LangManager');
+        $this->log->pushHandler(new StreamHandler($logDir.'/langmanager.log', Logger::WARNING));
     }
 
     /**
@@ -136,6 +157,9 @@ class LangManager
                 {
                     foreach ($value as $key2 => $value2)
                     {
+                        if(is_array($value2))
+                            throw new InvalidArgumentException();
+
                         $this->set($fileName.'.'.$key.'.'.$key2, $value2, $locale);
                     }
                 }
@@ -242,7 +266,7 @@ class LangManager
      * @param  string $prefix
      * @return boolean
      */
-    public function deleteKeys($prefix)
+    public function deleteKeys(string $prefix)
     {
         try
         {

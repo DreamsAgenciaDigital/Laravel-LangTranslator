@@ -3,7 +3,8 @@
     "description": "Lang Translator for different storages management",
     "type": "package",
     "require": {
-       "php": ">=5.5.9"
+       "php": ">=5.5.9",
+       "monolog/monolog": "^1.23"
     },
     "require-dev": {
         "laravel/framework": "^5.2",

@@ -27,16 +27,16 @@ For default implements Redis. You are free to implement other storage, only need
 # CONFIGURATION PACKAGE IN LARAVEL
 
 ```php
-# Add to database.php config redis in transactional project
+# Add to database.php config redis in laravel 3 project
 
 'trans' => array(
-    'host'       => '192.168.1.225',
+    'host'       => 'X.X.X.X',
     'password'   => null,
     'port'       => 6379,
     'database'   => 3
 ),
 
-# Add to database.php config redis in adm,www,api and services project
+# Add to database.php config redis in > laravel 5 project
 'trans' => [
     'host' => env('REDIS_HOST', 'localhost'),
     'password' => env('REDIS_PASSWORD', null),
@@ -44,7 +44,7 @@ For default implements Redis. You are free to implement other storage, only need
     'database' => env('REDIS_TRANS_DB', 3)
 ],
 
-# Add to .env config in adm,www,api and services project
+# Add to .env config in > laravel 5 project
 REDIS_TRANS_DB="3"
 
 # Comment Translate Autoload Service Provider app.php config
@@ -58,4 +58,11 @@ php composer.phar dumpautoload
 
 # Run publish config vendor
 php artisan vendor:publish --provider="Dreams\LangTranslator\LangTranslatorProvider"
+```
+
+# RUN TESTS IN DOCKER
+```
+Todos los tests => vendor/bin/phpunit --testsuite alltest
+Todos los tests de una clase => vendor/bin/phpunit --testsuite alltest --filter=LangTranslatorProviderTest
+Un test de una clase => vendor/bin/phpunit --testsuite alltest --filter=LangTranslatorProviderTest::it_works_boot
 ```
