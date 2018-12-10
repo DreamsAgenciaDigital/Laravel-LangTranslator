@@ -4,8 +4,10 @@ namespace Dreams\LangTranslator;
 
 use Dreams\LangTranslator\LoaderInterface;
 use Dreams\LangTranslator\Models\Translation;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 use Exception;
-use Log;
+use InvalidArgumentException;
 
 class LangManager
 {
@@ -31,6 +33,12 @@ class LangManager
     protected $locale;
 
     /**
+     * Logger
+     * @var \Monolog\Logger
+     */
+    protected $log;
+
+    /**
      * Create a new private LangManager instance.
      *
      * @param  \Illuminate\Translation\LoaderInterface  $loader
@@ -41,6 +49,7 @@ class LangManager
     {
         $this->loader = $loader;
         $this->locale = $locale;
+        $this->startLogger();
     }
 
     /**
@@ -61,6 +70,26 @@ class LangManager
         return self::$instance;
     }
 
+    private function startLogger()
+    {
+        if(__DIR__ === '/var/www/html/src')
+        {
+            $logDir = '/var/www/html/logs';
+        }
+        else
+        {
+            $logDir = __DIR__ . '/../../../../storage/logs';
+        }
+
+        if(! file_exists($logDir))
+        {
+            mkdir($logDir);
+        }
+
+        $this->log    = new Logger('LangManager');
+        $this->log->pushHandler(new StreamHandler($logDir.'/langmanager.log', Logger::WARNING));
+    }
+
     /**
      * Save Language Translate
      * @param string $key
@@ -77,7 +106,8 @@ class LangManager
             if(strpos($key, '::'))
             {
                 $namespace = explode('::', $key)[0].':';
-                $key       = explode(explode('::', $key)[0].'.', $key)[1];
+                $locale    = explode('.', explode('::', $key)[1])[0];
+                $key       = explode($namespace.':'.$locale.'.', $key)[1];
             }
             else
                 $namespace = '';
@@ -91,7 +121,7 @@ class LangManager
         }
         catch(Exception $e)
         {
-            Log::error($e->getMessage());
+            $this->log->error($e->getMessage());
             return false;
         }
     }
@@ -106,13 +136,15 @@ class LangManager
     public function loadTransFromFile(string $fileName, string $filePath, $locale = null)
     {
         $locale           = ($locale) ? $locale : $this->locale;
-        $filePathOriginal = $filePath;
+        //** $filePathOriginal = $filePath;
         $expression       = str_replace('/', '\/', $filePath);
 
-        if(! preg_match("/".$expression."/", $filePath))
-            $filePath = base_path($filePath);
-        else
-            $filePath = $filePathOriginal;
+        //** if(! preg_match("/".$expression."/", $filePath))
+        //**     $filePath = base_path($filePath);
+        //** else
+        //**     $filePath = $filePathOriginal;
+
+        //** Se comenta para que siempre sea ruta absoluta
 
         try
         {
@@ -120,13 +152,28 @@ class LangManager
                 return false;
 
             foreach (include $filePath as $key => $value)
-                $this->set($fileName.'.'.$key, $value, $locale);
+            {
+                if(is_array($value))
+                {
+                    foreach ($value as $key2 => $value2)
+                    {
+                        if(is_array($value2))
+                            throw new InvalidArgumentException();
+
+                        $this->set($fileName.'.'.$key.'.'.$key2, $value2, $locale);
+                    }
+                }
+                else
+                {
+                    $this->set($fileName.'.'.$key, $value, $locale);
+                }
+            }
 
             return true;
         }
         catch(Exception $e)
         {
-            Log::error($e->getMessage());
+            $this->log->error($e->getMessage());
             return false;
         }
     }
@@ -140,7 +187,7 @@ class LangManager
     {
         try
         {
-            $baseFolder    = base_path($dirPath);
+            $baseFolder    = $dirPath; //base_path($dirPath); //** Se comenta para que siempre sea ruta absoluta
             $notprocessing = array('..', '.');
             $langs         = array_diff(scandir($baseFolder), $notprocessing);
 
@@ -160,7 +207,7 @@ class LangManager
         }
         catch(Exception $e)
         {
-            Log::error($e->getMessage());
+            $this->log->error($e->getMessage());
             return false;
         }
     }
@@ -180,7 +227,7 @@ class LangManager
 
             if(! $status)
             {
-                Log::error('Error al guardar la traduccion:'.$trans->key);
+                $this->log->error('Error al guardar la traduccion:'.$trans->key);
                 return false;
             }
         }
@@ -209,7 +256,7 @@ class LangManager
         }
         catch(Exception $e)
         {
-            Log::error($e->getMessage());
+            $this->log->error($e->getMessage());
             return false;
         }
     }
@@ -219,7 +266,7 @@ class LangManager
      * @param  string $prefix
      * @return boolean
      */
-    public function deleteKeys($prefix)
+    public function deleteKeys(string $prefix)
     {
         try
         {
@@ -244,7 +291,7 @@ class LangManager
         }
         catch(Exception $e)
         {
-            Log::error($e->getMessage());
+            $this->log->error($e->getMessage());
             return false;
         }
     }

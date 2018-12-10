@@ -15,13 +15,20 @@ class LangTranslatorTest extends TestCase
 {
     private $lang;
 
+    /**
+     * SetUp and fake dependencies
+     */
     public function setUp()
     {
         parent::setUp();
         $this->lang = 'es-es';
     }
 
-    public function testClassIsInstantiable()
+    /**
+     * @test
+     * @return void
+     */
+    public function it_class_is_instantiable()
     {
         $this->assertInstanceOf(
             LangTranslator::class,
@@ -32,7 +39,11 @@ class LangTranslatorTest extends TestCase
         );
     }
 
-    public function testItGetTranslation()
+    /**
+     * @test
+     * @return void
+     */
+    public function it_get_translation_with_key()
     {
         $translator = new LangTranslator(
             new FakeLoader(),
@@ -42,7 +53,11 @@ class LangTranslatorTest extends TestCase
         $this->assertEquals('mivalue', $translator->get('mikey'));
     }
 
-    public function testItGetTranslationWithNamespace()
+    /**
+     * @test
+     * @return void
+     */
+    public function it_get_translation_with_namespace()
     {
         $translator = new LangTranslator(
             new FakeLoader(),
@@ -52,7 +67,11 @@ class LangTranslatorTest extends TestCase
         $this->assertEquals('mivalue', $translator->get('namespace::es-es.mikey'));
     }
 
-    public function testItGetTranslationWithException()
+    /**
+     * @test
+     * @return void
+     */
+    public function it_get_translation_and_get_exception_if_redis_is_offline()
     {
         $translator = new LangTranslator(
             new FakeLoader(),
@@ -62,7 +81,11 @@ class LangTranslatorTest extends TestCase
         $this->assertEquals('error connection fakeredis', $translator->get('exception'));
     }
 
-    public function testItNotGetTranslation()
+    /**
+     * @test
+     * @return void
+     */
+    public function it_returns_key_when_not_found_key()
     {
         $translator = new LangTranslator(
             new FakeLoader(),
@@ -72,7 +95,11 @@ class LangTranslatorTest extends TestCase
         $this->assertEquals('miotrakey', $translator->get('miotrakey'));
     }
 
-    public function testItGetTranslationWithReplace()
+    /**
+     * @test
+     * @return void
+     */
+    public function it_get_translation_with_replacements()
     {
         $translator = new LangTranslator(
             new FakeLoader(),
@@ -88,7 +115,11 @@ class LangTranslatorTest extends TestCase
         );
     }
 
-    public function testItGetTranslationWithReplaceWithLocale()
+    /**
+     * @test
+     * @return void
+     */
+    public function it_get_translations_with_replacements_and_locale()
     {
         $translator = new LangTranslator(
             new FakeLoader(),
@@ -105,7 +136,11 @@ class LangTranslatorTest extends TestCase
         );
     }
 
-    public function testItNotGetTranslationWithReplaceWithLocale()
+    /**
+     * @test
+     * @return void
+     */
+    public function it_returns_key_when_not_found_key_with_replacements_and_locale()
     {
         $translator = new LangTranslator(
             new FakeLoader(),

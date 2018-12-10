@@ -4,31 +4,35 @@
     "type": "package",
     "require": {
        "php": ">=5.5.9",
-       "laravel/framework": "^5.2",
-       "predis/predis": "^1.1"
+       "monolog/monolog": "^1.23"
     },
     "require-dev": {
-        "phpunit/phpunit": "~7.0"
+        "laravel/framework": "^5.2",
+        "predis/predis": "^1.1",
+        "phpunit/phpunit": "~7.0",
+        "mikey179/vfsStream": "^1.6"
     },
     "license": "MIT",
     "authors": [
         {
-            "name": "Jorge Lopez Cardenas",
+            "name": "Jorge López Cárdenas",
             "email": "jorge.lopez@dreams.es"
         }
     ],
     "autoload": {
         "psr-4": {
             "Dreams\\LangTranslator\\": "src"
-        }
+        },
+        "files": [
+            "src/LangTranslatorHelper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
             "Dreams\\LangTranslatorTests\\": "tests"
-        }
-        ,
+        }  ,
         "files": [
-            "tests/LaravelHelpers/helpers.php"
+            "src/LangTranslatorHelper.php"
         ]
     },
     "minimum-stability": "dev"

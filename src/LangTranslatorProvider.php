@@ -70,6 +70,10 @@ class LangTranslatorProvider extends ServiceProvider
         ]);
     }
 
+    /**
+     * Register config in kernel
+     * @return void
+     */
     protected function registerConfig()
     {
         $this->publishes([

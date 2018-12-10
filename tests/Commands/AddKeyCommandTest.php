@@ -4,15 +4,15 @@ namespace Dreams\LangTranslatorTests\Commands;
 
 use Dreams\LangTranslatorTests\TestCase;
 use Dreams\LangTranslatorTests\Fakes\FakeLoader;
-use Dreams\LangTranslatorTests\Fakes\FakeCommand;
-use Dreams\LangTranslator\Commands\LangTranslatorDeleteKeysCommand;
+use Dreams\LangTranslatorTests\Fakes\FakeAddKeyCommand;
+use Dreams\LangTranslator\Commands\LangTranslatorAddKeyCommand;
 
 /**
  * Description of DeleteKeysCommandTest
  *
  * @author Jorge Lopez
  */
-class DeleteKeysCommandTest extends TestCase
+class AddKeyCommandTest extends TestCase
 {
     /**
      * SetUp and fake dependencies
@@ -34,8 +34,8 @@ class DeleteKeysCommandTest extends TestCase
     public function it_class_is_instantiable()
     {
         $this->assertInstanceOf(
-            LangTranslatorDeleteKeysCommand::class,
-            new LangTranslatorDeleteKeysCommand()
+            LangTranslatorAddKeyCommand::class,
+            new LangTranslatorAddKeyCommand()
         );
     }
 
@@ -45,17 +45,7 @@ class DeleteKeysCommandTest extends TestCase
      */
     public function its_work()
     {
-        $command = new FakeCommand('es-es:*');
-        $this->assertTrue($command->handle());
-    }
-
-    /**
-     * @test
-     * @return void
-     */
-    public function its_work_with_null_prefix()
-    {
-        $command = new FakeCommand();
+        $command = new FakeAddKeyCommand();
         $this->assertTrue($command->handle());
     }
 }
