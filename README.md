@@ -11,17 +11,7 @@ For default implements Redis. You are free to implement other storage, only need
 
 ```php
 # Add require composer.json in each project
-"require": {
-    "dreams/langtranslator": "^1.0"
-},
-
-# Add to end of composer.json in each project
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "https://dev.dreams.es/Packages/Laravel-LangTranslator.git"
-    }
-]
+composer require dreams/langtranslator
 ```
 
 # CONFIGURATION PACKAGE IN LARAVEL
@@ -62,6 +52,15 @@ php artisan vendor:publish --provider="Dreams\LangTranslator\LangTranslatorProvi
 
 # RUN TESTS IN DOCKER
 ```
+
+Create a .env for up dev stack with next content:
+
+IMAGE_PROXY=jwilder/nginx-proxy
+IMAGE="your_php_apache_docker_image"
+DNS="your_dns_resolver"
+HOST="your_dev_domain"
+USER="your_username"
+
 Todos los tests => vendor/bin/phpunit --testsuite alltest
 Todos los tests de una clase => vendor/bin/phpunit --testsuite alltest --filter=LangTranslatorProviderTest
 Un test de una clase => vendor/bin/phpunit --testsuite alltest --filter=LangTranslatorProviderTest::it_works_boot

@@ -1,7 +1,7 @@
 version: '3'
 services:
   balancer:
-    image: "jwilder/nginx-proxy"
+    image: ${IMAGE_PROXY}
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     ports:
@@ -9,13 +9,13 @@ services:
     restart: "no"
 
   www:
-    image: "dev.dreams.es:4567/dreams/docker-php:7.1-xdebug"
+    image: ${IMAGE}
     volumes:
       - .:/var/www/html
-    dns: 192.168.1.201
-    dns_search: 192.168.1.201
-    hostname: langtranslator.dreams
+    dns: ${DNS}
+    dns_search: ${DNS}
+    hostname: ${HOST}
     environment:
-      - VIRTUAL_HOST=langtranslator.dreams
-      - user=jorge
+      - VIRTUAL_HOST=${HOST}
+      - user=${USER}
     restart: "no"
