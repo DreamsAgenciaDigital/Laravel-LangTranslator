@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Prepare two different releases for laravel < 5.3 and >= 5.3
+
+## 1.2.4 - 2018-11-05
+### Changed
+- Add new helper "__" for translates
 
 ## 1.2.3 - 2018-07-18
 ### Changed
