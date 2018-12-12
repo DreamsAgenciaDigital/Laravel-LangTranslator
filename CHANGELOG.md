@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Changed
-- Prepare two different releases for laravel < 5.3 and >= 5.3
+- Prepare two different releases for laravel < 5.4 and >= 5.4
 
 ## 1.2.4 - 2018-11-05
 ### Changed

@@ -23,7 +23,7 @@ composer require dreams/langtranslator
     'host'       => 'X.X.X.X',
     'password'   => null,
     'port'       => 6379,
-    'database'   => 3
+    'database'   => X
 ),
 
 # Add to database.php config redis in > laravel 5 project
@@ -31,11 +31,11 @@ composer require dreams/langtranslator
     'host' => env('REDIS_HOST', 'localhost'),
     'password' => env('REDIS_PASSWORD', null),
     'port' => env('REDIS_PORT', 6379),
-    'database' => env('REDIS_TRANS_DB', 3)
+    'database' => env('REDIS_TRANS_DB', X)
 ],
 
 # Add to .env config in > laravel 5 project
-REDIS_TRANS_DB="3"
+REDIS_TRANS_DB="X"
 
 # Comment Translate Autoload Service Provider app.php config
 Illuminate\Translation\TranslationServiceProvider::class,
