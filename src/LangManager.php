@@ -58,11 +58,26 @@ class LangManager
     private function __clone() { }
 
     /**
+     * Check if DreamsRedisLoader is configured
+     * @return boolean
+     */
+    public static function isActive()
+    {
+        if(get_class(app('translation.loader')) == 'Dreams\LangTranslator\RedisLoader')
+            return true;
+
+        return false;
+    }
+
+    /**
      * Instance of LangManager object with injections
      * @return App\Libraries\DrsLangTranslator\LangManager
      */
     public static function getInstance()
     {
+        if(! self::isActive())
+            throw new Exception('Dreams\LangTranslator\RedisLoader not configured!');
+
         if (is_null(self::$instance)) {
             self::$instance = new LangManager(app('translation.loader'), config('app.locale'));
         }
