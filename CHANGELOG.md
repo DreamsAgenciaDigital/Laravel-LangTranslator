@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Prepare two different releases for laravel < 5.4 and >= 5.4
 
+## 1.3.0 - 2019-11-07
+- Add isActive() function to check RedisLoader is ready
+
 ## 1.2.4 - 2018-11-05
 ### Changed
 - Add new helper "__" for translates
