@@ -19,7 +19,7 @@ class LangTranslatorDeleteKeysCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'langtranslator:deletekeys {prefix}';
+    protected $signature = 'langtranslator:deletekeys {prefix?}';
 
     /**
      * The console command description.
@@ -36,11 +36,16 @@ class LangTranslatorDeleteKeysCommand extends Command
     public function handle()
     {
         $prefix = $this->argument('prefix'); // "*" to all or "es-es:*"
-        $state  = LangManager::getInstance()->deleteKeys($prefix);
 
-        if(! $state)
-            return false;
+        if(is_null($prefix))
+        {
+            do
+            {
+                $prefix = $this->ask('Write a key "*" to all or "es-es:*" for filter key: ');
+            }
+            while(is_null($prefix));
+        }
 
-        return true;
+        return LangManager::getInstance()->deleteKeys($prefix);
     }
 }

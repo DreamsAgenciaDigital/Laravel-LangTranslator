@@ -9,6 +9,7 @@ use Dreams\LangTranslator\Commands\LangTranslatorPutFileCommand;
 use Dreams\LangTranslator\Commands\LangTranslatorPutFolderCommand;
 use Dreams\LangTranslator\Commands\LangTranslatorDeleteKeysCommand;
 use Dreams\LangTranslator\Commands\LangTranslatorPutFromDbCommand;
+use Dreams\LangTranslator\Commands\LangTranslatorAddKeyCommand;
 
 class LangTranslatorProvider extends ServiceProvider
 {
@@ -19,7 +20,7 @@ class LangTranslatorProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->registerConfig();
     }
 
     /**
@@ -54,14 +55,30 @@ class LangTranslatorProvider extends ServiceProvider
         });
     }
 
+    /**
+     * Register the commands in kernel
+     * @return void
+     */
     protected function registerCommand()
     {
         $this->commands([
             LangTranslatorPutFileCommand::class,
             LangTranslatorPutFolderCommand::class,
             LangTranslatorDeleteKeysCommand::class,
-            LangTranslatorPutFromDbCommand::class
+            LangTranslatorPutFromDbCommand::class,
+            LangTranslatorAddKeyCommand::class
         ]);
+    }
+
+    /**
+     * Register config in kernel
+     * @return void
+     */
+    protected function registerConfig()
+    {
+        $this->publishes([
+            __DIR__ . '/Config/translationDb.php' => config_path('translationDb.php')
+        ], 'config');
     }
 
     /**

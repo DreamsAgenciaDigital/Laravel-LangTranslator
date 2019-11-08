@@ -1,0 +1,21 @@
+version: '3'
+services:
+  balancer:
+    image: ${IMAGE_PROXY}
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+        - 80:80
+    restart: "no"
+
+  www:
+    image: ${IMAGE}
+    volumes:
+      - .:/var/www/html
+    dns: ${DNS}
+    dns_search: ${DNS}
+    hostname: ${HOST}
+    environment:
+      - VIRTUAL_HOST=${HOST}
+      - user=${USER}
+    restart: "no"

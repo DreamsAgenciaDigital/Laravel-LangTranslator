@@ -4,7 +4,7 @@ namespace Dreams\LangTranslator\Commands;
 
 use Illuminate\Console\Command;
 use Dreams\LangTranslator\LangManager;
-use Dreams\LangTranslator\Translation;
+use Dreams\LangTranslator\Models\Translation;
 
 class LangTranslatorPutFromDbCommand extends Command
 {

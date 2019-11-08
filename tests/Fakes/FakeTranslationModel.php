@@ -1,8 +1,8 @@
 <?php
 
-namespace Dreams\LangTranslatorFakes;
+namespace Dreams\LangTranslatorTests\Fakes;
 
-use Dreams\LangTranslator\Translation;
+use Dreams\LangTranslator\Models\Translation;
 
 class FakeTranslationModel extends Translation
 {
